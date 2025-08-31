@@ -1,0 +1,37 @@
+-- 🧹 Step 1: Drop tables in reverse dependency order
+DROP TABLE IF EXISTS notes CASCADE;
+DROP TABLE IF EXISTS habit_logs CASCADE;
+DROP TABLE IF EXISTS habits CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
+-- 🏗️ Step 2: Recreate tables
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE habits (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  goal INTEGER,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE habit_logs (
+  id SERIAL PRIMARY KEY,
+  habit_id INTEGER REFERENCES habits(id) ON DELETE CASCADE,
+  date DATE NOT NULL,
+  completed BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE notes (
+  id SERIAL PRIMARY KEY,
+  habit_id INTEGER REFERENCES habits(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  timestamp TIMESTAMP DEFAULT NOW()
+);
