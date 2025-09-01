@@ -17,7 +17,7 @@ export const login = async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
         res.json({ token });
     } catch (err) {
@@ -46,11 +46,24 @@ export const register = async (req, res) => {
             [username, email, hashedPassword]
         );
 
-        const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+        const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET);
 
         res.status(201).json({ token });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: 'Registration failed' });
+    }
+}
+
+export const getUser = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id, username, email FROM users WHERE id = $1', [req.user.id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(result.rows[0])
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Failed to get user' });
     }
 }

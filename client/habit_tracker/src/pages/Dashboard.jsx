@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar"
-import DateStrip from "./DateStrip";
+import Navbar from "../components/Navbar";
 import DailyTracker from "../components/DailyTracker";
 import { api } from "../utils/api";
+import DateStrip from "../components/DateStrip";
 
 const Dashboard = () => {
     const today = new Date();
@@ -10,6 +10,7 @@ const Dashboard = () => {
     const [habits, setHabits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [username, setUsername] = useState("User");
     const formattedDate = today.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -30,8 +31,19 @@ const Dashboard = () => {
         }
     };
 
+    const fetchUser = async () => {
+        try {
+            const result = await api.get("/auth/user");
+            setUsername(result.data.username);
+        } catch (error) {
+            console.error("Error fetching user:", error);
+            setUsername("User");
+        }
+    };
+
     useEffect(() => {
         fetchHabits();
+        fetchUser();
     }, []);
 
     const handleHabitAdded = () => {
@@ -40,7 +52,7 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Navbar onHabitAdded={handleHabitAdded} />
+            <Navbar onHabitAdded={handleHabitAdded} username={username} />
             <div className="todays-date">{formattedDate}</div>
             <DateStrip currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <DailyTracker selectedDate={currentDate} habits={habits} onHabitAdded={handleHabitAdded} loading={loading} error={error} />

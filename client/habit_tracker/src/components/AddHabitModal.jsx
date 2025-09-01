@@ -72,7 +72,7 @@ const AddHabitModal = ({ isOpen, onClose, onHabitAdded, forEdit, fetchSingleHabi
                     />
                 </div>
                 <div>
-                    <label htmlFor="habit-goal">Goal (times per month):</label>
+                    <label htmlFor="habit-goal">Goal (Days per month):</label>
                     <input
                         type="number"
                         id="habit-goal"

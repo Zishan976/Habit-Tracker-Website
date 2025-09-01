@@ -3,11 +3,17 @@ import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" replace />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/login" replace />
+    element: <Home />
   },
   {
     path: "/login",
@@ -19,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: <ProtectedRoute><Dashboard /></ProtectedRoute>
   },
   {
     path: "*",
@@ -30,3 +36,4 @@ const router = createBrowserRouter([
 export default function App() {
   return <RouterProvider router={router} />;
 }
+

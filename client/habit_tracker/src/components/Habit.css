@@ -15,6 +15,7 @@
 .habit-title {
   flex-grow: 1;
   font-size: 1.1rem;
+  transition: transform 0.4s ease;
 }
 
 .habit-complete-btn {
@@ -41,16 +42,40 @@
 
 .pencil,
 .trash {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pencil {
+  left: 0;
+}
+
+.trash {
+  left: 30px;
 }
 
 .statement {
   display: flex;
   gap: 12px;
+  align-items: center;
+  position: relative;
+}
+
+.statement:hover .habit-title {
+  transform: translateX(60px);
 }
 
 .statement:hover .pencil,
 .statement:hover .trash {
-  display: inline;
+  opacity: 1;
+  pointer-events: auto;
   cursor: pointer;
 }
