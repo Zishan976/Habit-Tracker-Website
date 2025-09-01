@@ -9,14 +9,22 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [fetchSingleHabit, setFecthSingleHabit] = useState({})
+    const [fetchSingleHabit, setFetchSingleHabit] = useState({})
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
     async function handleFetchSingleHabit() {
-        const result = await api.get(`/habits/${habit.id}`);
-        setFecthSingleHabit(result.data[0])
+        try {
+            setLoading(true)
+            const result = await api.get(`/habits/${habit.id}`);
+            setFetchSingleHabit(result.data[0])
+        } catch (error) {
+            setError("Failed to fectch the habit details")
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     useEffect(() => {

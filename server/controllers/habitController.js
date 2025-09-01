@@ -3,11 +3,10 @@ import pool from '../db.js'
 
 export const getHabits = async (req, res) => {
     try {
-        console.log("Authenticated user:", req.user);
         const result = await pool.query("SELECT * FROM habits WHERE user_id = $1 ORDER BY created_at DESC", [req.user.id]);
         res.json(result.rows);
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ error: "Failed to fetch habits" })
     }
 };
@@ -20,8 +19,8 @@ export const getHabit = async (req, res) => {
         }
         res.json(result.rows);
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ error: "Failed to fetch habits" })
+        console.error(error.message)
+        res.status(500).json({ error: "Failed to fetch habit" })
     }
 };
 export const postHabit = async (req, res) => {
@@ -30,7 +29,7 @@ export const postHabit = async (req, res) => {
         const result = await pool.query("INSERT INTO habits (user_id, title, goal) VALUES ($1, $2, $3) RETURNING *", [req.user.id, title, goal]);
         res.json(result.rows[0])
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ error: "Failed to post habits" })
     }
 };
@@ -44,7 +43,7 @@ export const putHabit = async (req, res) => {
         }
         res.json(result.rows[0])
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ error: "Failed to update habits" })
     }
 };
@@ -57,7 +56,7 @@ export const deleteHabit = async (req, res) => {
         }
         res.json(result.rows[0])
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ error: "Failed to delete habits" })
     }
 };

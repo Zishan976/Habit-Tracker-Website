@@ -3,6 +3,21 @@ import './DailyTracker.css'
 
 const DailyTracker = ({ selectedDate, habits, onHabitAdded, loading, error }) => {
 
+    const filteredHabits = habits.filter(habit => {
+        console.log("habit.created_at:", habit.created_at);
+        const start = new Date(habit.created_at);
+        console.log("start:", start);
+        if (!habit.goal || habit.goal <= 0) return true;
+        const end = new Date(start);
+        end.setDate(start.getDate() + habit.goal);
+        console.log("end:", end);
+        const selected = new Date(selectedDate);
+        selected.setHours(0, 0, 0, 0);
+        start.setHours(0, 0, 0, 0);
+        end.setHours(0, 0, 0, 0);
+        return selected >= start && selected < end;
+    });
+
     if (loading) {
         return (
             <div className="daily-tracker">
@@ -25,19 +40,20 @@ const DailyTracker = ({ selectedDate, habits, onHabitAdded, loading, error }) =>
                 <h1>Create your first habit by clicking on + </h1>
             </div>
         )
-    } else {
-        return (
-            <div className="daily-tracker">
-                <ul>
-                    {habits.map((habit) => (
-                        <li key={habit.id}>
-                            <Habit habit={habit} selectedDate={selectedDate} onHabitAdded={onHabitAdded} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
     }
+
+    return (
+        <div className="daily-tracker">
+            <ul>
+                {filteredHabits.map((habit) => (
+                    <li key={habit.id}>
+                        <Habit habit={habit} selectedDate={selectedDate} onHabitAdded={onHabitAdded} />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+
 
 
 }
