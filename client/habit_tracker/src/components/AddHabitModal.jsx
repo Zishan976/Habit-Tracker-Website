@@ -78,7 +78,7 @@ const AddHabitModal = ({ isOpen, onClose, onHabitAdded, forEdit, fetchSingleHabi
                         id="habit-goal"
                         value={goal}
                         onChange={(e) => setGoal(e.target.value)}
-                        placeholder="e.g., 8"
+                        placeholder="e.g., 24"
                         min="1"
                         required
                     />

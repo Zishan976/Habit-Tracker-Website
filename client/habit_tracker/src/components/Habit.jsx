@@ -27,9 +27,7 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
 
     }
 
-    useEffect(() => {
-        handleFetchSingleHabit()
-    }, [])
+
 
     useEffect(() => {
         async function getTodaysLog() {
@@ -85,7 +83,6 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         if (window.confirm(`Are you sure you want to delete the habit "${habit.title}"?`)) {
             try {
                 await api.delete(`/habits/${habit.id}`)
-                await api.delete(`/habits/${habit.id}/logs`)
                 onHabitAdded() // Refresh the habits list
             } catch (error) {
                 console.error("Failed to delete habit:", error)
@@ -98,11 +95,15 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         if (todaysLog && todaysLog.completed) return "✔️"
         return "●"
     }
+    const handlePencilClick = () => {
+        openModal()
+        handleFetchSingleHabit()
+    }
 
     return (
         <div className="habit-item">
             <div className="statement">
-                <Pencil className="pencil" onClick={openModal} />
+                <Pencil className="pencil" onClick={handlePencilClick} />
                 <Trash className="trash" onClick={handleDelete} />
                 <span className="habit-title">{habit.title}</span>
             </div>

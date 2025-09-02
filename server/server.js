@@ -17,9 +17,9 @@ app.use('/api/auth', auth);
 
 app.use("/api/habits", habitRoutes);
 
-app.use("/api/habits/:habitId/logs", habitLogRoutes)
+app.use("/api/notes", noteRoutes)
 
-app.use("/api/habits/:habitId/notes", noteRoutes)
+app.use("/api/habits/:habitId/logs", habitLogRoutes)
 
 
 app.use((req, res) => {

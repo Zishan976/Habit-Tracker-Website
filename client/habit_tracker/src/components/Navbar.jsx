@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Bell, ChevronRight, Heart, Plus } from 'lucide-react';
 import AddHabitModal from './AddHabitModal';
 import './Navbar.css'; // Importing the CSS file

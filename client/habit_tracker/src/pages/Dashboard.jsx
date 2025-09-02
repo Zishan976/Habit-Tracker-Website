@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import DailyTracker from "../components/DailyTracker";
 import { api } from "../utils/api";
 import DateStrip from "../components/DateStrip";
+import Notes from "../components/Notes";
 
 const Dashboard = () => {
     const today = new Date();
@@ -56,7 +57,7 @@ const Dashboard = () => {
             <div className="todays-date">{formattedDate}</div>
             <DateStrip currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <DailyTracker selectedDate={currentDate} habits={habits} onHabitAdded={handleHabitAdded} loading={loading} error={error} />
-
+            <Notes />
         </div>
     )
 }

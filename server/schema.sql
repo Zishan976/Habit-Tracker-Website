@@ -31,7 +31,7 @@ CREATE TABLE habit_logs (
 
 CREATE TABLE notes (
   id SERIAL PRIMARY KEY,
-  habit_id INTEGER REFERENCES habits(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   content TEXT NOT NULL,
   timestamp TIMESTAMP DEFAULT NOW()
 );
