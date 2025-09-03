@@ -5,8 +5,136 @@ body {
   font-family: "Roboto Condensed", sans-serif;
   color: #2f2f2f;
 }
+
 .todays-date {
   text-align: center;
   font-size: 2rem;
   font-weight: 600;
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #00172f;
+  color: #fff;
+}
+
+body.dark-mode .todays-date {
+  color: #fff;
+}
+
+/* General container styles for dark mode */
+body.dark-mode nav {
+  background: #00172f;
+  color: #e0e6f1;
+}
+
+body.dark-mode .nickname h1,
+body.dark-mode .nickname p {
+  color: #fff;
+}
+
+body.dark-mode .icons svg,
+body.dark-mode .nickname svg {
+  color: #a0b0d0;
+}
+
+body.dark-mode .icons svg:hover,
+body.dark-mode .nickname svg:hover {
+  color: #f0f4ff;
+}
+
+/* Modal styles for dark mode */
+body.dark-mode .modal {
+  background: #1f2a44;
+  color: #e0e6f1;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .modal label {
+  color: #a0a8c0;
+}
+
+body.dark-mode .modal input {
+  background-color: #0a1a2a;
+  border: 1px solid #3a4a6a;
+  color: #e0e6f1;
+}
+
+body.dark-mode .modal button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+body.dark-mode .modal button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+body.dark-mode .modal button[type="submit"]:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+body.dark-mode .modal .error {
+  color: #f44336;
+}
+
+/* Dark mode toggle button */
+body.dark-mode .dark-mode-toggle {
+  background-color: #00172f;
+  color: #e0e6f1;
+  border-radius: 4px;
+  padding: 4px 8px;
+  border: none;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: #14253d;
+}
+
+body.dark-mode .date-strip button {
+  color: #fff;
+}
+
+body.dark-mode .daily-tracker {
+  background: #022039;
+}
+
+body.dark-mode .habit-item {
+  background: #00162e;
+}
+
+body.dark-mode .statement,
+.notes-title,
+.modal h2 {
+  color: #fff;
+}
+
+body.dark-mode .notes-new-button:hover {
+  background-color: #14253d;
+  color: #007bff;
+}
+
+body.dark-mode .notes-new-button {
+  background-color: #00172f;
+}
+
+body.dark-mode .note-card {
+  background-color: #00172e;
+  border: 1px solid #2f3d4b;
+}
+
+body.dark-mode .note-content {
+  color: #fff;
+}
+
+body.dark-mode .modal h2 {
+  color: #fff;
+}
+
+body.dark-mode .modal textarea {
+  background-color: #00172f;
+  color: #fff;
+}
+
+/* Additional dark mode styles for other components can be added here */
