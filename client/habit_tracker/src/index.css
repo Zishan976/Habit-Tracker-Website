@@ -138,3 +138,8 @@ body.dark-mode .modal textarea {
 }
 
 /* Additional dark mode styles for other components can be added here */
+.navigate-date {
+  cursor: pointer;
+  width: 4rem;
+  margin: 12px 0 0;
+}

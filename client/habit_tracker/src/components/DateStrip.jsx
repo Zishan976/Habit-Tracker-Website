@@ -1,9 +1,8 @@
-
 import './DateStrip.css';
 
 const DateStrip = ({ currentDate, setCurrentDate }) => {
     const days = [...Array(6)].map((_, i) => {
-        const date = new Date();
+        const date = new Date(currentDate);
         date.setDate(currentDate.getDate() - 3 + i);
         return date;
     });

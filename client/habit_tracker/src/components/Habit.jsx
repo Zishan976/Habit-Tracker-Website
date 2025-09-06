@@ -105,12 +105,8 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
                     if (window.confirm(`Would you like to delete the completed habit "${habit.title}"?`)) {
                         handleDelete()
                     }
-
                 }, 5000) // Stop confetti after 5 seconds
-
-
             }
-
         } catch (error) {
             console.error("Failed to toggle habit completion:", error)
             setError("Failed to update habit. Please try again.")

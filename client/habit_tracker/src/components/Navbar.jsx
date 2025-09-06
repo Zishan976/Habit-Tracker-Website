@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, ChevronRight, Heart, Plus } from 'lucide-react';
 import AddHabitModal from './AddHabitModal';
+import { Link } from "react-router-dom";
 import './Navbar.css'; // Importing the CSS file
 
 function Navbar({ onHabitAdded, username }) {
@@ -34,9 +35,10 @@ function Navbar({ onHabitAdded, username }) {
                 <div className="nickname">
                     <ChevronRight />
                     <h1>Hey {username}!</h1>
-                    <p>You missed two habits today, get to it?</p>
+                    <p>Did you completed todays task?</p>
                 </div>
                 <div className="icons">
+                    <Link to={'/login'} className="logout-btn">Logout</Link>
                     <button
                         onClick={toggleDarkMode}
                         aria-label="Toggle Dark Mode"
