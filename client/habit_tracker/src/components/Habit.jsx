@@ -3,6 +3,9 @@ import { api } from "../utils/api"
 import './Habit.css'
 import { Pencil, Trash } from "lucide-react"
 import AddHabitModal from "./AddHabitModal"
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import Confetti from 'react-confetti';
 
 function Habit({ habit, selectedDate, onHabitAdded }) {
     const [todaysLog, setTodaysLog] = useState(null)
@@ -10,6 +13,8 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
     const [error, setError] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [fetchSingleHabit, setFetchSingleHabit] = useState({})
+    const [completedDays, setCompletedDays] = useState(0)
+    const [showConfetti, setShowConfetti] = useState(false)
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -26,8 +31,6 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         }
 
     }
-
-
 
     useEffect(() => {
         async function getTodaysLog() {
@@ -52,11 +55,26 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         getTodaysLog()
     }, [habit.id, selectedDate,])
 
+    useEffect(() => {
+        async function getAllLogs() {
+            try {
+                const response = await api.get(`/habits/${habit.id}/logs`)
+                const completedCount = response.data.filter(log => log.completed).length
+                setCompletedDays(completedCount)
+            } catch (error) {
+                console.error("Failed to fetch all logs:", error)
+            }
+        }
+        getAllLogs()
+    }, [habit.id])
+
     const toggleComplete = async () => {
         setLoading(true);
         setError(null);
         try {
             const formattedDate = selectedDate.toISOString().split('T')[0]
+
+            let newCompletedDays = completedDays;
 
             if (todaysLog) {
                 // Update existing log
@@ -64,13 +82,35 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
                     completed: !todaysLog.completed
                 })
                 setTodaysLog(response.data[0])
+                // Update completedDays
+                newCompletedDays = completedDays + (response.data[0].completed ? 1 : -1)
+                setCompletedDays(newCompletedDays)
+
             } else {
                 // Create new log
                 const response = await api.post(`/habits/${habit.id}/logs`, {
                     date: formattedDate
                 })
                 setTodaysLog(response.data[0])
+                // Update completedDays
+                newCompletedDays = completedDays + (response.data[0].completed ? 1 : 0)
+                setCompletedDays(newCompletedDays)
             }
+
+            if (habit.goal === newCompletedDays) {
+                setShowConfetti(true)
+                alert(`🎉 Congratulations! You have completed ${habit.title}! 🎉`)
+                setTimeout(() => {
+                    setShowConfetti(false)
+                    if (window.confirm(`Would you like to delete the completed habit "${habit.title}"?`)) {
+                        handleDelete()
+                    }
+
+                }, 5000) // Stop confetti after 5 seconds
+
+
+            }
+
         } catch (error) {
             console.error("Failed to toggle habit completion:", error)
             setError("Failed to update habit. Please try again.")
@@ -78,6 +118,7 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
             setLoading(false)
         }
     }
+
 
     const handleDelete = async () => {
         if (window.confirm(`Are you sure you want to delete the habit "${habit.title}"?`)) {
@@ -95,6 +136,7 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         if (todaysLog && todaysLog.completed) return "✔️"
         return "●"
     }
+
     const handlePencilClick = () => {
         openModal()
         handleFetchSingleHabit()
@@ -102,10 +144,14 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
 
     return (
         <div className="habit-item">
+            {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
             <div className="statement">
                 <Pencil className="pencil" onClick={handlePencilClick} />
                 <Trash className="trash" onClick={handleDelete} />
                 <span className="habit-title">{habit.title}</span>
+            </div>
+            <div className="circular-progress-bar">
+                <CircularProgressbar value={(completedDays / habit.goal) * 100} text={`${completedDays}/${habit.goal}`} />
             </div>
 
             <button
