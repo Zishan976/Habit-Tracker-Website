@@ -34,7 +34,7 @@ const DailyTracker = ({ selectedDate, habits, onHabitAdded, loading, error }) =>
     if (!habits || habits.length === 0) {
         return (
             <div className="daily-tracker">
-                <h1>Create your first habit by clicking on + </h1>
+                <h1>Create your first habit by clicking on + Icon</h1>
             </div>
         )
     }

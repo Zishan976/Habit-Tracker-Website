@@ -7,6 +7,7 @@ nav {
   border-radius: 12px;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   font-family: "Roboto Condensed", sans-serif;
+  position: relative;
 }
 
 .nickname {
@@ -31,6 +32,7 @@ nav {
 .icons {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .icons svg,
@@ -126,6 +128,18 @@ nav {
   margin-bottom: 10px;
 }
 
+.modal textarea {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 120px;
+  max-height: 200px;
+  font-family: inherit;
+}
+
 .dark-mode-toggle {
   cursor: pointer;
   margin: 0 1rem;
@@ -147,8 +161,94 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  height: 100%;
 }
 
 .logout-btn:hover {
   background-color: #d32f2f;
+}
+
+.hamburger-container {
+  display: none;
+}
+
+.hamburger-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: linear-gradient(90deg, #f0e6d2, #d9cbbf);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 4px;
+}
+
+.hamburger-menu.open {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .hamburger-container {
+    display: block;
+  }
+
+  .after-mobile-mode {
+    display: none;
+  }
+
+  .in-hamburger {
+    background: transparent;
+  }
+
+  .dark-mode .hamburger-menu {
+    background: #00172f;
+    border: 1px solid white;
+  }
+
+  .modal {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .modal h2 {
+    font-size: 1.2rem;
+  }
+
+  .modal textarea {
+    font-size: 0.9rem;
+    min-height: 100px;
+    max-height: 150px;
+  }
+
+  .modal button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 10px;
+    max-width: 95%;
+  }
+
+  .modal h2 {
+    font-size: 1rem;
+  }
+
+  .modal textarea {
+    font-size: 0.8rem;
+    min-height: 80px;
+    max-height: 120px;
+  }
+
+  .modal button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
 }

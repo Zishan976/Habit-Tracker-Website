@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Bell, ChevronRight, Heart, Plus } from 'lucide-react';
 import AddHabitModal from './AddHabitModal';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Hamburger from 'hamburger-react'
 import './Navbar.css'; // Importing the CSS file
 
 function Navbar({ onHabitAdded, username }) {
@@ -11,6 +12,8 @@ function Navbar({ onHabitAdded, username }) {
         const saved = localStorage.getItem('darkMode');
         return saved === 'true';
     });
+    const navigate = useNavigate()
+    const [isOpen, setOpen] = useState(false)
 
     useEffect(() => {
         if (isDarkMode) {
@@ -33,25 +36,42 @@ function Navbar({ onHabitAdded, username }) {
         <>
             <nav>
                 <div className="nickname">
-                    <ChevronRight />
+                    <ChevronRight onClick={() => navigate(-1)} />
                     <h1>Hey {username}!</h1>
                     <p>Did you completed todays task?</p>
                 </div>
                 <div className="icons">
-                    <Link to={'/login'} className="logout-btn">Logout</Link>
+
                     <button
                         onClick={toggleDarkMode}
                         aria-label="Toggle Dark Mode"
-                        className="dark-mode-toggle"
+                        className="dark-mode-toggle after-mobile-mode"
 
                     >
                         {isDarkMode ? <span title="Move to light mode">🌙</span> : <span title="Move to dark mode">☀️</span>}
                     </button>
 
 
-                    <Plus onClick={openModal} style={{ cursor: 'pointer' }} />
+                    <Plus onClick={openModal} style={{ cursor: 'pointer' }} className="icon-plus" />
+                    <Bell className="icon-bell after-mobile-mode" />
+                    <Heart className="icon-heart after-mobile-mode" />
+                    <Link to={'/login'} className="logout-btn after-mobile-mode">Logout</Link>
+                    <div className="hamburger-container">
+                        <Hamburger toggled={isOpen} toggle={setOpen} />
+                    </div>
+                </div>
+                <div className={`hamburger-menu ${isOpen ? 'open' : ''}`}>
+                    <button
+                        onClick={toggleDarkMode}
+                        aria-label="Toggle Dark Mode"
+                        className="dark-mode-toggle in-hamburger"
+
+                    >
+                        {isDarkMode ? <span title="Move to light mode">🌙</span> : <span title="Move to dark mode">☀️</span>}
+                    </button>
                     <Bell />
                     <Heart />
+                    <Link to={'/login'} className="logout-btn">Logout</Link>
                 </div>
             </nav>
             <AddHabitModal

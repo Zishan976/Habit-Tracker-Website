@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { api } from "../utils/api"
 import './Habit.css'
-import { Pencil, Trash } from "lucide-react"
+import { EllipsisVertical, Pencil, Trash } from "lucide-react"
 import AddHabitModal from "./AddHabitModal"
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -10,11 +10,14 @@ import Confetti from 'react-confetti';
 function Habit({ habit, selectedDate, onHabitAdded }) {
     const [todaysLog, setTodaysLog] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [fetchSingleHabit, setFetchSingleHabit] = useState({})
     const [completedDays, setCompletedDays] = useState(0)
     const [showConfetti, setShowConfetti] = useState(false)
+    const [isShown, setIsShown] = useState(false)
+    const [completionMessage, setCompletionMessage] = useState(null)
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -25,7 +28,7 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
             const result = await api.get(`/habits/${habit.id}`);
             setFetchSingleHabit(result.data[0])
         } catch (error) {
-            setError("Failed to fectch the habit details")
+            setError("Failed to fetch the habit details")
         } finally {
             setLoading(false)
         }
@@ -92,16 +95,20 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
                     date: formattedDate
                 })
                 setTodaysLog(response.data[0])
-                // Update completedDays
-                newCompletedDays = completedDays + (response.data[0].completed ? 1 : 0)
-                setCompletedDays(newCompletedDays)
+                // Update completedDays only if the new log is completed
+                if (response.data[0].completed) {
+                    newCompletedDays = completedDays + 1
+                    setCompletedDays(newCompletedDays)
+                }
             }
 
             if (habit.goal === newCompletedDays) {
                 setShowConfetti(true)
-                alert(`🎉 Congratulations! You have completed ${habit.title}! 🎉`)
+                // Replace alert with non-blocking message
+                setCompletionMessage(`🎉 Congratulations! You have completed ${habit.title}! 🎉`)
                 setTimeout(() => {
                     setShowConfetti(false)
+                    setCompletionMessage(null)
                     if (window.confirm(`Would you like to delete the completed habit "${habit.title}"?`)) {
                         handleDelete()
                     }
@@ -119,10 +126,14 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
     const handleDelete = async () => {
         if (window.confirm(`Are you sure you want to delete the habit "${habit.title}"?`)) {
             try {
+                setDeleteLoading(true)
                 await api.delete(`/habits/${habit.id}`)
                 onHabitAdded() // Refresh the habits list
             } catch (error) {
                 console.error("Failed to delete habit:", error)
+                setError("Failed to delete habit. Please try again.")
+            } finally {
+                setDeleteLoading(false)
             }
         }
     }
@@ -142,9 +153,14 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
         <div className="habit-item">
             {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
             <div className="statement">
-                <Pencil className="pencil" onClick={handlePencilClick} />
-                <Trash className="trash" onClick={handleDelete} />
+                <EllipsisVertical className="three-dot" onClick={() => setIsShown((prev) => !prev)} />
+                <Pencil className="pencil after-mobile-mode" onClick={handlePencilClick} disabled={loading} />
+                <Trash className="trash after-mobile-mode" onClick={handleDelete} disabled={deleteLoading} />
                 <span className="habit-title">{habit.title}</span>
+            </div>
+            <div className={`habit-menu ${isShown ? 'open' : ''}`}>
+                <Pencil className="pencil" onClick={handlePencilClick} disabled={loading} />
+                <Trash className="trash" onClick={handleDelete} disabled={deleteLoading} />
             </div>
             <div className="circular-progress-bar">
                 <CircularProgressbar value={(completedDays / habit.goal) * 100} text={`${completedDays}/${habit.goal}`} />
@@ -158,7 +174,13 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
             >
                 {getButtonSymbol()}
             </button>
-            {error && <p className="error">{error}</p>}
+            {completionMessage && <p className="completion-message">{completionMessage}</p>}
+            {error && (
+                <div className="error">
+                    <p>{error}</p>
+                    <button onClick={() => setError(null)}>Retry</button>
+                </div>
+            )}
             <AddHabitModal
                 isOpen={isModalOpen}
                 onClose={closeModal}

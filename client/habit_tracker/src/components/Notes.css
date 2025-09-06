@@ -92,3 +92,69 @@
   visibility: visible;
   opacity: 100%;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .note-container {
+    max-width: 100%;
+    margin: 20px 10px;
+  }
+
+  .notes-title {
+    font-size: 1.2rem;
+  }
+
+  .notes-new-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .note-card {
+    padding: 0.8rem;
+  }
+
+  .note-timestamp {
+    font-size: 0.8rem;
+  }
+
+  .note-content {
+    font-size: 0.9rem;
+  }
+
+  .note-timeTrash {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .pencil-trash {
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .note-container {
+    margin: 10px 5px;
+  }
+
+  .notes-title {
+    font-size: 1rem;
+  }
+
+  .notes-new-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .note-card {
+    padding: 0.6rem;
+  }
+
+  .note-timestamp {
+    font-size: 0.7rem;
+  }
+
+  .note-content {
+    font-size: 0.8rem;
+  }
+}

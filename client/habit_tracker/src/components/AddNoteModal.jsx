@@ -57,15 +57,6 @@ const AddNoteModal = ({ isOpen, onClose, onNotesAdded, singleNote, forEdit }) =>
                         placeholder="Write your thoughts"
                         aria-required="true"
                         id="note-content"
-                        style={{
-                            overflowY: 'hidden',
-                            height: '119.333px',
-                            resize: 'none',
-                            minHeight: '119.333px',
-                            maxHeight: '185.333px',
-                            width: '24rem',
-                            marginBottom: '5px'
-                        }}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     ></textarea>

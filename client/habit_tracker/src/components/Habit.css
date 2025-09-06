@@ -10,6 +10,7 @@
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 600;
   color: #2f2f2f;
+  position: relative;
 }
 
 .habit-title {
@@ -91,4 +92,58 @@
 
 .circular-progress-bar .CircularProgressbar-text {
   font-size: 2rem !important;
+}
+
+.habit-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: linear-gradient(90deg, #f0e6d2, #d9cbbf);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 4px;
+}
+
+.three-dot {
+  display: none;
+}
+
+.habit-menu.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .after-mobile-mode {
+    display: none;
+  }
+
+  .three-dot {
+    display: block;
+  }
+
+  .statement:hover .habit-title {
+    transform: none;
+  }
+
+  .pencil,
+  .trash {
+    opacity: 100%;
+    position: static;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .dark-mode .habit-menu {
+    background: #00162e;
+    color: white;
+    border: 1px solid white;
+  }
 }

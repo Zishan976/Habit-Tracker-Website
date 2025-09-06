@@ -137,9 +137,113 @@ body.dark-mode .modal textarea {
   color: #fff;
 }
 
+body.dark-mode .completion-message {
+  color: #fff;
+}
+
 /* Additional dark mode styles for other components can be added here */
 .navigate-date {
   cursor: pointer;
   width: 4rem;
   margin: 12px 0 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .todays-date {
+    font-size: 1.5rem !important;
+  }
+
+  nav {
+    padding: 10px 20px !important;
+  }
+
+  /* .nickname {
+    flex-direction: row !important;
+    align-items: center;
+    width: 100%;
+    gap: 9px;
+  } */
+
+  .nickname h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .nickname p {
+    font-size: 0.9rem !important;
+  }
+
+  .icons {
+    gap: 10px !important;
+  }
+
+  .daily-tracker {
+    padding: 15px 20px !important;
+    max-width: 100% !important;
+  }
+
+  .habit-title {
+    font-size: 1rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .circular-progress-bar {
+    width: 1.5rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .habit-complete-btn {
+    width: 2.5rem !important;
+    font-size: 1.2rem !important;
+  }
+
+  .date-strip {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .date-strip button {
+    padding: 6px 8px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .todays-date {
+    font-size: 1.2rem !important;
+  }
+
+  nav {
+    padding: 8px 15px !important;
+  }
+
+  .nickname h1 {
+    font-size: 1.2rem !important;
+  }
+
+  .nickname p {
+    font-size: 0.8rem !important;
+  }
+
+  .habit-title {
+    font-size: 0.9rem !important;
+  }
+
+  .circular-progress-bar {
+    width: 1.2rem !important;
+  }
+
+  .habit-complete-btn {
+    width: 2rem !important;
+    font-size: 1rem !important;
+  }
+
+  .date-strip button {
+    padding: 5px 6px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .date-stri {
+    gap: 5px;
+  }
 }
