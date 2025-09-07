@@ -1,8 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import '../pages/LogInRegister.css';
 import { ArrowRight } from 'lucide-react';
+import { api } from '../utils/api';
 
 const AuthForm = ({ isLogin }) => {
     const [email, setEmail] = useState("");
@@ -13,13 +13,11 @@ const AuthForm = ({ isLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const endpoint = isLogin
-                ? "http://localhost:5000/api/auth/login"
-                : "http://localhost:5000/api/auth/register";
+            const endpoint = isLogin ? "/auth/login" : "/auth/register";
             const data = isLogin
                 ? { email, password }
                 : { username, email, password };
-            const res = await axios.post(endpoint, data);
+            const res = await api.post(endpoint, data);
             localStorage.setItem("token", res.data.token);
             navigate("/dashboard");
         } catch (_error) {
