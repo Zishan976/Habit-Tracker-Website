@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "npm install --prefix ./client && npm run build --prefix ./client && npm install ",
+    "build": "npm install --prefix ./client/habit_tracker && npm run build --prefix ./client/habit_tracker && npm install ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
