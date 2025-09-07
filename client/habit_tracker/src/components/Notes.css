@@ -121,14 +121,16 @@
     font-size: 0.9rem;
   }
 
-  .note-timeTrash {
-    flex-direction: column;
-    align-items: flex-start;
+  .pencil-trash {
     gap: 5px;
   }
 
-  .pencil-trash {
-    gap: 5px;
+  .for-note {
+    top: 10%;
+    right: 10%;
+    left: unset;
+    background: white;
+    padding: 4px;
   }
 }
 

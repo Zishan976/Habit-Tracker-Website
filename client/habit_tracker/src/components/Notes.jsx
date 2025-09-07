@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import './Notes.css';
 import AddNoteModal from "./AddNoteModal";
-import { Trash } from "lucide-react";
+import { EllipsisVertical, Trash } from "lucide-react";
 import Edit from "./Edit";
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isShown, setIsShown] = useState(false)
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -71,8 +72,14 @@ const Notes = () => {
                     <div key={note.id} className="note-card">
                         <div className="note-timeTrash">
                             <p className="note-timestamp">{formatTimestamp(note.timestamp)}</p>
-                            <div className="pencil-trash">
+                            <EllipsisVertical className="three-dot" onClick={() => setIsShown((prev) => !prev)} />
+                            <div className="pencil-trash after-mobile-mode">
 
+                                <Edit onNotesAdded={onNotesAdded} note={note} />
+                                <Trash onClick={() => handleDelete(note.id)} style={{ width: "18px", cursor: "pointer" }} />
+                            </div>
+
+                            <div className={`habit-menu for-note ${isShown ? 'open' : ''}`}>
                                 <Edit onNotesAdded={onNotesAdded} note={note} />
                                 <Trash onClick={() => handleDelete(note.id)} style={{ width: "18px", cursor: "pointer" }} />
                             </div>

@@ -180,6 +180,7 @@ body.dark-mode .completion-message {
   .daily-tracker {
     padding: 15px 20px !important;
     /* max-width: 100% !important; */
+    width: 85%;
   }
 
   .habit-title {
@@ -211,6 +212,10 @@ body.dark-mode .completion-message {
 @media (max-width: 480px) {
   .todays-date {
     font-size: 1.2rem !important;
+  }
+
+  .emply-habit {
+    font-size: 14px;
   }
 
   nav {
