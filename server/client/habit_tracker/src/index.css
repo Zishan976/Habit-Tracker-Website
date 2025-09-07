@@ -179,7 +179,7 @@ body.dark-mode .completion-message {
 
   .daily-tracker {
     padding: 15px 20px !important;
-    max-width: 100% !important;
+    /* max-width: 100% !important; */
   }
 
   .habit-title {
