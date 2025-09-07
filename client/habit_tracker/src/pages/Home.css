@@ -28,8 +28,20 @@ header h1 {
 
 .hero p {
   font-size: 1.2rem;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   line-height: 1.6;
+}
+
+.motivational-quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 0 20px;
+  border-left: 4px solid #4a90e2;
+  background-color: #f9f9f9;
+  padding-left: 20px;
 }
 
 .cta-buttons {
@@ -127,6 +139,11 @@ footer {
 @media (max-width: 768px) {
   .home-logo {
     width: 18rem;
+  }
+
+  .motivational-quote {
+    font-size: 1rem;
+    padding: 15px 20px;
   }
 
   .feature-list {

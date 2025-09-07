@@ -19,7 +19,7 @@ const Edit = ({ onNotesAdded, note }) => {
         try {
             const result = await api.get(`/notes/${note.id}`)
             setSingleNote(result.data)
-        } catch (error) {
+        } catch (_error) {
             setError("Failed to load note. Please try again later.");
         } finally {
             setLoading(false);

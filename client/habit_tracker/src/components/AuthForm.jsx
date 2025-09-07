@@ -22,7 +22,7 @@ const AuthForm = ({ isLogin }) => {
             const res = await axios.post(endpoint, data);
             localStorage.setItem("token", res.data.token);
             navigate("/dashboard");
-        } catch (error) {
+        } catch (_error) {
             alert("Invalid credentials");
         }
     };

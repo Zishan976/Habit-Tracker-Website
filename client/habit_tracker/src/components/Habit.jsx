@@ -27,7 +27,7 @@ function Habit({ habit, selectedDate, onHabitAdded }) {
             setLoading(true)
             const result = await api.get(`/habits/${habit.id}`);
             setFetchSingleHabit(result.data[0])
-        } catch (error) {
+        } catch (_error) {
             setError("Failed to fetch the habit details")
         } finally {
             setLoading(false)

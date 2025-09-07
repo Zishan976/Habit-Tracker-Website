@@ -17,7 +17,7 @@ app.use('/api/auth', auth);
 
 app.use("/api/habits", habitRoutes);
 
-app.use("/api/notes", noteRoutes)
+app.use("/api/notes", noteRoutes);
 
 app.use("/api/habits/:habitId/logs", habitLogRoutes)
 

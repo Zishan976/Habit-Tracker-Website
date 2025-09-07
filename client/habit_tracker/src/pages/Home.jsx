@@ -15,6 +15,9 @@ const Home = () => {
             <section className="hero">
                 <h2>Track your habits effortlessly</h2>
                 <p>Stay motivated and improve your productivity by tracking your daily habits with ease.</p>
+                <blockquote className="motivational-quote">
+                    It is said that if anyone keeps practicing one task till 21 days then he can make it a habit. This is the purpose of this website to track habits.
+                </blockquote>
                 <div className="cta-buttons">
                     <Link to={token ? '/dashboard' : '/login'} className="btn btn-primary">Login</Link>
                     <Link to='/register' className="btn btn-secondary">Create Account</Link>
