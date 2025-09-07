@@ -84,19 +84,22 @@ A modern, responsive web application for tracking daily habits and building bett
 
 ```
 habit_tracker_website/
-├── client/
-│   └── habit_tracker/
-│       ├── src/
-│       │   ├── components/
-│       │   ├── pages/
-│       │   ├── utils/
-│       │   └── assets/
-│       ├── public/
-│       └── package.json
 └── server/
+    ├── client/
+    │   └── habit_tracker/
+    │       ├── src/
+    │       │   ├── components/
+    │       │   ├── pages/
+    │       │   ├── utils/
+    │       │   └── assets/
+    │       ├── public/
+    │       └── package.json
     ├── controllers/
     ├── routes/
     ├── middleware/
+    ├── db.js
+    ├── schema.sql
+    ├── server.js
     └── package.json
 ```
 
