@@ -193,3 +193,20 @@ footer {
     padding: 10px 20px;
   }
 }
+
+/* Styles for footer creator info */
+footer p:last-child {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+footer p:last-child a {
+  color: #0077b5; /* LinkedIn blue */
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+footer p:last-child a:hover {
+  text-decoration: underline;
+}

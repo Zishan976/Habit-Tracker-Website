@@ -48,6 +48,7 @@ const Home = () => {
 
             <footer>
                 <p>Start building better habits today!</p>
+                <p>Created by: Khalilur Rahmen | <a href="https://www.linkedin.com/in/khalilur-rahman-a3640a381/" target="_blank" rel="noopener noreferrer">LinkedIn</a> | <a href="mailto:sharkarzishan@gmail.com">Gmail</a></p>
             </footer>
         </div>
     )
