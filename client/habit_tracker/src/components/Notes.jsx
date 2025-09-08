@@ -9,7 +9,7 @@ const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isShown, setIsShown] = useState(false)
+    const [shownNotes, setShownNotes] = useState({})
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -72,14 +72,20 @@ const Notes = () => {
                     <div key={note.id} className="note-card">
                         <div className="note-timeTrash">
                             <p className="note-timestamp">{formatTimestamp(note.timestamp)}</p>
-                            <EllipsisVertical className="three-dot" onClick={() => setIsShown((prev) => !prev)} />
+                            <EllipsisVertical className="three-dot" onClick={() => setShownNotes(prev => {
+                                const newShown = { ...prev };
+                                Object.keys(newShown).forEach(id => {
+                                    if (id !== note.id) newShown[id] = false;
+                                });
+                                newShown[note.id] = !prev[note.id];
+                                return newShown;
+                            })} />
                             <div className="pencil-trash after-mobile-mode">
-
                                 <Edit onNotesAdded={onNotesAdded} note={note} />
                                 <Trash onClick={() => handleDelete(note.id)} style={{ width: "18px", cursor: "pointer" }} />
                             </div>
 
-                            <div className={`habit-menu for-note ${isShown ? 'open' : ''}`}>
+                            <div className={`habit-menu for-note ${shownNotes[note.id] ? 'open' : ''}`}>
                                 <Edit onNotesAdded={onNotesAdded} note={note} />
                                 <Trash onClick={() => handleDelete(note.id)} style={{ width: "18px", cursor: "pointer" }} />
                             </div>
