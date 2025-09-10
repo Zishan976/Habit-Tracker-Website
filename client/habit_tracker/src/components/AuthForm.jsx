@@ -21,6 +21,7 @@ const AuthForm = ({ isLogin }) => {
             localStorage.setItem("token", res.data.token);
             navigate("/dashboard");
         } catch (_error) {
+            localStorage.removeItem("token");
             alert("Invalid credentials");
         }
     };
