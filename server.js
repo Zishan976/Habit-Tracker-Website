@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express();
 app.use(express.json());
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 app.use(cors());
 
 
