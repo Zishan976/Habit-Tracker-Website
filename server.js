@@ -7,6 +7,8 @@ import noteRoutes from './routes/noteRoutes.js';
 import auth from './routes/auth.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -16,6 +18,8 @@ const __dirname = path.dirname(__filename)
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 7000;
+app.use(helmet());
+app.use(morgan('dev'));
 app.use(cors());
 
 
