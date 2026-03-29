@@ -3,7 +3,7 @@ import axios from "axios";
 export const api = axios.create({
   baseURL:
     import.meta.env.VITE_API_BASE_URL ||
-    "https://habit-tracker-website-production.up.railway.app/api" ||
+    "habitto.up.railway.app/api" ||
     "http://localhost:7000/api",
 });
 
